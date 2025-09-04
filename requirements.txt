@@ -1,0 +1,6 @@
+torch
+transformers
+jieba
+rapidfuzz
+ipykernel
+torchvision
