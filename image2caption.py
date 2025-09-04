@@ -1,4 +1,4 @@
-##### image pred
+
 from transformers import VisionEncoderDecoderModel, ViTFeatureExtractor, AutoTokenizer
 import torch
 from PIL import Image
@@ -32,13 +32,13 @@ class Image2Caption(object):
         img_cation_df = pd.DataFrame(list(zip(image_paths, img_caption_pred)))
         img_cation_df.columns = ["img", "caption"]
         return img_cation_df
-        #img_cation_df.to_html(escape=False, formatters=dict(Country=path_to_image_html))
+        
 
     def predict_step(self ,image_paths, max_length = 128, num_beams = 4):
         gen_kwargs = {"max_length": max_length, "num_beams": num_beams}
         images = []
         for image_path in image_paths:
-            #i_image = Image.open(image_path)
+            
             if image_path.startswith("http"):
                 i_image = Image.open(
                     requests.get(image_path, stream=True).raw

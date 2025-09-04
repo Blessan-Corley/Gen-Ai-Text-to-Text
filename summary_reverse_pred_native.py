@@ -1,6 +1,6 @@
-#### Chinese scope
+
 device = "cuda:0"
-#device = "cpu"
+
 assert device.startswith("cpu") or device.startswith("cuda")
 
 import sys
@@ -31,7 +31,7 @@ import jieba
 def repeat_to_one_f(x):
     req = None
     for token in jieba.lcut(x):
-        #print("req :", req)
+        
 
         if len(set(token)) == 1:
             token = token[0]
@@ -77,8 +77,8 @@ def loop_add(l, names = ["杰克", "安娜"]):
         )
     return req
 
-#### need some names drop in context(may not have ":")
-#### '艾米-亚当斯在《沉睡的空洞》中，全身，双色大眼睛，咬牙切齿，恐怖，复杂的细节，电影，史诗，现实，解剖，汤姆-哈努卡，上光，艺术站，逼真，可怕'
+
+
 def guess_name_candidates(context, cnt_threshold = 1):
     from copy import deepcopy
     assert type(context) == type("")
@@ -143,13 +143,13 @@ def repeat_score(l, slice_size = 200 ,sim_threshold = 70):
         if ":" in ele:
             ele = "".join(ele.split(":")[1:])
         if set0 and max(map(lambda x: fuzz.ratio(x[:slice_size], ele[:slice_size]), set0)) > sim_threshold:
-            #if ele in set0:
+            
             cnt_num += 1
         set0.add(ele)
     return cnt_num
 
-#### "svjack/prompt-extend-chinese-gpt"
-#model_path = "/home/featurize/zh_p_extend_outputs/simplet5-epoch-3-train-loss-1.2628-val-loss-1.6293"
+
+
 model_path = "svjack/prompt-extend-chinese-gpt"
 tokenizer1 = BertTokenizer.from_pretrained(model_path)
 model1 = GPT2LMHeadModel.from_pretrained(model_path)
@@ -178,7 +178,7 @@ def sample_pred(context, times = 5, stdf_prompt_expander = lambda _: _):
     df_req = []
     for i in tqdm(range(times)):
         ele = stdf_prompt_expander(context)
-        #ele = context
+        
         l = simple_pred(ele, do_sample = True)
         df_req.append(
             [ele, l]
@@ -242,7 +242,7 @@ if __name__ == "__main__":
     img_url = "https://datasets-server.huggingface.co/assets/metashift/--/metashift/train/2/image/image.jpg"
     img_url = "https://datasets-server.huggingface.co/assets/metashift/--/metashift/train/6/image/image.jpg"
 
-    #### diffusion model, general model
+    
     df = sample_pred_wrapper(img_url, i2c_obj = ofa_obj)
     df["dialogue"].values.tolist()
 

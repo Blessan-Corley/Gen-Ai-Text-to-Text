@@ -10,18 +10,18 @@ class CaptionCollator(object):
     def __call__(self, features: List[Dict[str, Any]]) -> Dict[str, Any]:
         captions, patch_images = [], []
         for data in features:
-            # 如果图片预处理失败，则跳过该图片
+            
             if data['patch_image'] is None:
                 continue
             captions.append(data['caption'])
             patch_images.append(data['patch_image'])
-        # 获得encoder的输入
+        
         input_ids = self.tokenizer(
             ['图片描述了什么?']*len(captions), return_tensors="pt", max_length=self.max_seq_length, truncation=True, padding=True
         ).input_ids
         patch_images = torch.concat(patch_images, dim=0)
 
-        # 获得decoder的输入
+        
         inputs = self.tokenizer(
             captions, return_tensors="pt", max_length=self.max_seq_length, truncation=True, padding=True
         )

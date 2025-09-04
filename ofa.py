@@ -1,4 +1,4 @@
-#### https://github.com/yangjianxin1/OFA-Chinese
+
 
 from component.ofa.modeling_ofa import OFAModelForCaption
 from torchvision import transforms
@@ -12,7 +12,7 @@ from IPython.core.display import HTML
 import os
 import requests
 
-# 定义图片预处理逻辑
+
 mean, std = [0.5, 0.5, 0.5], [0.5, 0.5, 0.5]
 resolution = 256
 patch_resize_transform = transforms.Compose([
@@ -36,12 +36,12 @@ class OFA(object):
         img_cation_df = pd.DataFrame(list(zip(image_paths, img_caption_pred)))
         img_cation_df.columns = ["img", "caption"]
         return img_cation_df
-        #img_cation_df.to_html(escape=False, formatters=dict(Country=path_to_image_html))
+        
 
     def predict_step(self ,image_paths):
         images = []
         for image_path in image_paths:
-            #i_image = Image.open(image_path)
+            
             if image_path.startswith("http"):
                 i_image = Image.open(
                     requests.get(image_path, stream=True).raw
@@ -59,7 +59,7 @@ class OFA(object):
         inputs = inputs.to(self.device)
         req = []
         for patch_img in images:
-            # 生成caption
+            
             patch_img = patch_img.to(self.device)
             gen = self.model.generate(inputs, patch_images=patch_img, num_beams=5, no_repeat_ngram_size=3)
             gen = self.tokenizer.batch_decode(gen, skip_special_tokens=True)[0]
@@ -71,7 +71,7 @@ def path_to_image_html(path):
     return '<img src="'+ path + '" width="60" >'
 
 if __name__ == "__main__":
-    #### build too slow
+    
     ofa_obj = OFA()
 
     img_path_l = pd.Series(list(pathlib.Path("../../pic").rglob("*"))).map(

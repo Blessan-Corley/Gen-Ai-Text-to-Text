@@ -1,6 +1,6 @@
-#### English scope
+
 device = "cuda:0"
-#device = "cpu"
+
 assert device.startswith("cpu") or device.startswith("cuda")
 
 import sys
@@ -64,8 +64,8 @@ def loop_add(l, names = ["Tom", "Jack"]):
         )
     return req
 
-#### need some names drop in context(may not have ":")
-#### '艾米-亚当斯在《沉睡的空洞》中，全身，双色大眼睛，咬牙切齿，恐怖，复杂的细节，电影，史诗，现实，解剖，汤姆-哈努卡，上光，艺术站，逼真，可怕'
+
+
 def guess_name_candidates(context, cnt_threshold = 1):
     from copy import deepcopy
     assert type(context) == type("")
@@ -102,7 +102,7 @@ summary_expander = lambda _:_, do_sample = True):
     l = list(filter(lambda x: x.strip(), l))
     if shorten_it:
         l = shorten_exists(l)
-    #l = loop_add(l, candidates)
+    
     l = list(map(lambda x: x.strip(), l))
     return l
 
@@ -136,7 +136,7 @@ def repeat_score(l, slice_size = 200 ,sim_threshold = 70):
         if ":" in ele:
             ele = "".join(ele.split(":")[1:])
         if set0 and max(map(lambda x: fuzz.ratio(x[:slice_size], ele[:slice_size]), set0)) > sim_threshold:
-            #if ele in set0:
+            
             cnt_num += 1
         set0.add(ele)
     return cnt_num
@@ -145,7 +145,7 @@ def sample_pred(context, times = 5, stdf_prompt_expander = lambda _: _):
     df_req = []
     for i in tqdm(range(times)):
         ele = stdf_prompt_expander(context)
-        #ele = context
+        
         l = simple_pred(ele, do_sample = True)
         df_req.append(
             [ele, l]

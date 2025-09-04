@@ -1,17 +1,17 @@
-# coding=utf-8
-# Copyright 2022 The OFA-Sys Team. All rights reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 """ OFA model configuration"""
 import warnings
 from transformers import PretrainedConfig
@@ -25,7 +25,7 @@ OFA_PRETRAINED_CONFIG_ARCHIVE_MAP = {
     "OFA-Sys/OFA-medium": "https://huggingface.co/OFA-Sys/OFA-medium/blob/main/config.json",
     "OFA-Sys/OFA-base": "https://huggingface.co/OFA-Sys/OFA-base/blob/main/config.json",
     "OFA-Sys/OFA-large": "https://huggingface.co/OFA-Sys/OFA-large/blob/main/config.json",
-    # See all OFA models at https://huggingface.co/models?filter=ofa
+    
 }
 
 
@@ -155,7 +155,7 @@ class OFAConfig(PretrainedConfig):
         self.classifier_dropout = classifier_dropout
         self.use_cache = use_cache
         self.num_hidden_layers = encoder_layers
-        self.scale_embedding = scale_embedding  # scale factor will be sqrt(d_model) if True
+        self.scale_embedding = scale_embedding  
         self.encoder_normalize_before = encoder_normalize_before
         self.decoder_normalize_before = decoder_normalize_before
         self.normformer = normformer
@@ -185,7 +185,7 @@ class OFAConfig(PretrainedConfig):
             **kwargs,
         )
 
-        # ensure backward compatibility for BART CNN models
+        
         if self.forced_bos_token_id is None and kwargs.get("force_bos_token_to_be_generated", False):
             self.forced_bos_token_id = self.bos_token_id
             warnings.warn(
